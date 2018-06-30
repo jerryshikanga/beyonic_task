@@ -28,4 +28,4 @@ NEXMO_BRAND_NAME = 'your_brand'
 ```sh
 $   python3 manage.py runserver
 ```
-Visit the site on your browser at [localhost:8000/accounts/register/](localhost:8000/accounts/register/)
+Visit the site on your browser at [localhost:8000/accounts/register/](http://localhost:8000/accounts/register/)
