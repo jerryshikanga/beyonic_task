@@ -15,11 +15,10 @@ To run the development version :
    ```sh
 $ pip install -r requirements.txt
 $ python3 manage.py makemigrations
-$ python manage.py migrate
-$ python manage.py createsuperuser
+$ python3 manage.py migrate
+$ python3 manage.py createsuperuser
 ```
-- Navigate into beyonic_sign_up
-- Edit the file settings.py and replace the following with values from [Nexmo](https://www.nexmo.com/)
+- Edit the file beyonic_sign_up/settings.py and replace the following with values from [Nexmo](https://www.nexmo.com/)
 ```python
 NEXMO_API_KEY = 'secret_key'
 NEXMO_API_SECRET = 'secret_key'
@@ -27,5 +26,5 @@ NEXMO_BRAND_NAME = 'your_brand'
 ```
 -Finally run
 ```sh
-$   python manage.py runserver
+$   python3 manage.py runserver
 ```
