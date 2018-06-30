@@ -1,0 +1,13 @@
+<h3>Verify Code</h3>
+{% if pin_incorrect %}
+    The PIN you entered is incorrect. Try again.
+{% endif %}
+<form method="post" action="">
+    {% csrf_token %}
+    <div>
+        <label for="">Verification Code</label>
+        <input type="text" name="verification_code">
+    </div>
+    <button type="submit">Submit</button>
+    <button  type="reset">Reset</button>
+</form>
