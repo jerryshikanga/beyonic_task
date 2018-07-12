@@ -5,7 +5,7 @@ This is a snippet for sign up and sign in as part of the beyonic guidelines. It 
   - Nexmo SMS API
   - Python3
   - Django 2.0+
-  - Celery
+  - Celery and RabbitMQ
 
 # Installation
 To run the development version :
@@ -28,6 +28,7 @@ NEXMO_BRAND_NAME = 'your_brand'
 ```
 -Finally run
 ```sh
+$   celery -A beyonic_sign_up worker -l info
 $   python3 manage.py runserver
 ```
 Visit the site on your browser at [localhost:8000/accounts/register/](http://localhost:8000/accounts/register/)
