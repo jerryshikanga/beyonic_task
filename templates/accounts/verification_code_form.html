@@ -2,6 +2,7 @@
 {% if pin_incorrect %}
     The PIN you entered is incorrect. Try again.
 {% endif %}
+Enter the verification code sent to your phone
 <form method="post" action="">
     {% csrf_token %}
     <div>

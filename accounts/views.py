@@ -2,10 +2,11 @@ from django.views.generic import FormView
 from .forms import VerificationCodeValidationForm, RegisterForm
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from .models import Account
+from .tasks import check_verification
 import json
 
 
@@ -38,16 +39,12 @@ class VerificationPINValidationView(FormView):
 
     def form_valid(self, form):
         account = get_object_or_404(Account, telephone=self.kwargs['telephone'])
-        verification_resp = json.loads(account.verification_resp)
-        if form.check_verification(verification_resp):
-            return HttpResponseRedirect(reverse_lazy("accounts:register_success"))
-        else:
-            response = TemplateResponse(self.request, "accounts/verification_code_form.html", {"pin_incorrect": True})
-            return response
+        check_verification(account, form.data["verification_code"])
+        return HttpResponseRedirect(reverse_lazy("accounts:await_confirmation"))
 
 
-def register_success(request):
-    return render(request, "accounts/register_success.html")
+def await_confirmation(request):
+    return render(request, "accounts/await_confirmation.html")
 
 
 def login_success(request):

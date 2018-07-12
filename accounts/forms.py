@@ -40,7 +40,8 @@ class RegisterForm(forms.Form):
             email=form_data.get("email"),
             first_name=form_data.get("first_name"),
             last_name=form_data.get("last_name"),
-            username=form_data.get("email")
+            username=form_data.get("email"),
+            is_active=False,
         )
         user.set_password(form_data.get("password2"))
         user.save()
@@ -59,14 +60,3 @@ class RegisterForm(forms.Form):
 
 class VerificationCodeValidationForm(forms.Form):
     verification_code = forms.CharField(max_length=20)
-
-    def check_verification(self, verify_resp):
-        client = nexmo.Client(key=settings.NEXMO_API_KEY, secret=settings.NEXMO_API_SECRET)
-        if "request_id" in verify_resp.keys():
-            response = client.check_verification(verify_resp['request_id'], code=self.data['verification_code'])
-            if response['status'] == '0':
-                return True
-            else:
-                return False
-        else:
-            return False
