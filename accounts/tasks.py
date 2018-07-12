@@ -20,8 +20,9 @@ def check_verification(account : Account, verification_code : str):
     if "request_id" in verify_resp.keys():
         response = client.check_verification(verify_resp['request_id'], code=verification_code)
         if response['status'] == '0':
-            account.user.is_active = True
-            account.save()
+            user = account.user
+            user.is_active = True
+            user.save()
             return True
         else:
             return False
