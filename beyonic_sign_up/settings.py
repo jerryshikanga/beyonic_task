@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 
     # Register the accounts app to handle user sign in and authentication
     'accounts.apps.AccountsConfig',
+
+    # for storage of celery results using django orm/cacheexit()
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -123,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # In production change these to os.environ variables
@@ -132,3 +136,7 @@ NEXMO_BRAND_NAME = ''
 
 LOGIN_REDIRECT_URL = reverse_lazy("accounts:login_success")
 LOGOUT_REDIRECT_URL = reverse_lazy("login")
+
+# for celery
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'django-cache'
