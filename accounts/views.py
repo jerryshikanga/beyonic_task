@@ -39,7 +39,9 @@ class VerificationPINValidationView(FormView):
 
     def form_valid(self, form):
         account = get_object_or_404(Account, telephone=self.kwargs['telephone'])
-        check_verification(account, form.data["verification_code"])
+        # call to this function changed to asynchronous
+        # check_verification(account, form.data["verification_code"])
+        check_verification.apply_async(args=None, kwargs={"account":account, "verification_code": form.data["verification_code"]})
         return HttpResponseRedirect(reverse_lazy("accounts:await_confirmation"))
 
 
