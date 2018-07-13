@@ -53,7 +53,9 @@ class RegisterForm(forms.Form):
         )
         account.save()
 
-        initiate_nexmo_verification(telephone=form_data.get("telephone"), account=account)
+        #function changed to be called asynchronously
+        # initiate_nexmo_verification(telephone=form_data.get("telephone"), account=account)
+        initiate_nexmo_verification.apply_async(args=None, kwargs={"telephone": form_data.get("telephone"), "account": account})
 
         return account
 
